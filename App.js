@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert} from 'react-native';
 
 export default class App extends Component {
 
   state = {
-    placeName: "",
+    userName: "",
     password: ""
   };
 
-  placeNameChangedHandler = val => {
+  userNameChangedHandler = val => {
     this.setState({
-      placeName: val
+      userName: val
     });
   };
   passwordChangedHandler = val => {
@@ -21,12 +21,12 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Trio Dashboard!</Text> 
+        <Text style={styles.titleText}>Login</Text> 
         <TextInput
           style={{width: 300}}
           placeholder="Username"
-          value={this.state.placeName}
-          onChangeText={this.placeNameChangedHandler}
+          value={this.state.userName}
+          onChangeText={this.userNameChangedHandler}
         />
         <TextInput
           style={{width: 300}}
@@ -37,8 +37,23 @@ export default class App extends Component {
 
         <View style={styles.buttonContainer}>
           <Button
-
+            // On press of button-->> onclick in android with no return-type
+            onPress={() => {
+              // Alert.alert('Login Successsful!');
+              // Works on both iOS and Android
+                Alert.alert(
+                  'Trio',
+                  'Login Successfull.',
+                  [
+                    {text: 'I am feeling Lucky!', onPress: () => console.log('Ask me later pressed')},
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                  ],
+                  { cancelable: false }
+                )
+            }}
             title="Login"
+            color="#841584"
             />
         </View>
        
@@ -54,7 +69,7 @@ const styles = StyleSheet.create({
     padding: 26,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   }, buttonContainer: {
     //flex: 1,
     width:"100%",
@@ -62,6 +77,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'space-between',
-  }
+    justifyContent: 'center',
+  },
+  baseText: {
+    fontFamily: 'Cochin',
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
